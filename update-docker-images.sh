@@ -46,7 +46,7 @@ if ! docker info > /dev/null 2>&1; then
 fi
 
 # Get a list of all images
-images=$(docker images | awk 'NR>1 && $1 != "<none>" { print $1 }' | sort)
+images=$(docker images --format "{{.Repository}}" | grep -v '<none>' | sort)
 
 # Loop through each image
 for image in $images; do
